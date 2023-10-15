@@ -1,6 +1,8 @@
 package ned.dejonghblankenstijn;
 
 public class LongJumpMadness {
-    private Game game;
-    private StartMenu startMenu;
+
+    public static void main(String[] args) {
+        new Game().run();
+    }
 }
