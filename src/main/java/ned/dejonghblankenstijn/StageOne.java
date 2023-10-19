@@ -8,21 +8,26 @@ import java.awt.event.KeyEvent;
 import java.util.Random;
 
 public class StageOne implements ActionListener {
+    public StageOne(JFrame frame, FrameBuilder plane) {
+        this.frame = frame;
+        this.plane = plane;
+    }
 
     private final JFrame frame;
-    private final FrameBuilder plane;
 
+    private final FrameBuilder plane;
 
     private final Delay delay = new Delay();
     private final Timer countdown = new Timer(1000,this);
-    private final char randomKey = randomChar();
+    private final char RANDOM_KEY = randomChar();
+
     private final int DURATION = 5000;
 
     private final KeyAdapter keyAdapter = new KeyAdapter() {
         @Override
         public void keyPressed(KeyEvent e) {
             super.keyPressed(e);
-            if (e.getKeyCode() == randomKey) {
+            if (e.getKeyCode() == RANDOM_KEY) {
                 frame.removeKeyListener(this);
                 plane.setStageOne(false);
                 score = Math.max((int) (DURATION - (System.nanoTime() - startTime) / 1000000),0);
@@ -45,36 +50,23 @@ public class StageOne implements ActionListener {
     }
 
     private int score;
-
     private long startTime;
-    public StageOne(JFrame frame, FrameBuilder plane) {
-        this.frame = frame;
-        this.plane = plane;
-    }
 
 
     public int run() {
-        play();
-        delay.add(DURATION);
-        stop();
-        return score;
-    }
-
-    private void play() {
         plane.setStageOne(true);
         countdown.start();
         while (true) {
             if (!countdown.isRunning()) break;
 
         }
-        plane.setKey(randomKey);
+        plane.setKey(RANDOM_KEY);
         frame.addKeyListener(keyAdapter);
         startTime = System.nanoTime();
-    }
-
-    private void stop() {
+        delay.add(DURATION);
         frame.removeKeyListener(keyAdapter);
         plane.setStageOne(false);
+        return score;
     }
 
     private char randomChar() {

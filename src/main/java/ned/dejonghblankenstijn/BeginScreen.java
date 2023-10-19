@@ -21,7 +21,7 @@ public class BeginScreen {
             super.keyPressed(e);
             if (e.getKeyCode() == KeyEvent.VK_SPACE){
                 frame.removeKeyListener(this);
-                plane.timer.setDelay(200);
+                plane.timer.setDelay(15);
                 plane.setMovement(true);
                 plane.setDrawStartText(false);
                 beginActive = false;
