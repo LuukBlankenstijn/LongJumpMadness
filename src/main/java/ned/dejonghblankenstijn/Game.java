@@ -48,6 +48,7 @@ public class Game implements ActionListener {
         addDelay(2000);
         score += stageOne();
         System.out.println(score);
+        System.out.println("Je kale vader op een bakfiets");
     }
 
     private void setupFrame() {
