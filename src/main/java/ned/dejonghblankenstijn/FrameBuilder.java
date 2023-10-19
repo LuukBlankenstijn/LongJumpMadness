@@ -21,25 +21,22 @@ public class FrameBuilder implements ActionListener {
     protected final Timer timer = new Timer(100, this);
     private long timerCycle = 0;
 
-//  Stage One variables
-    protected int seconds;
-    private String message = "Click the following key as fast as possible:";
-
     private char key = 51;
 
     protected class DrawPlane extends JPanel {
         public void paintComponent(Graphics g) {
             g.drawImage(clouds.showImage, 0, 0, this);
             g.drawImage(track.showImage,0,368,this);
-            g.drawImage(character.showImage, 350, 500, this );
+            g.drawImage(character.showImage, 350, 450, this );
             if (drawStartText) {
-                g.setFont(new Font("Monaco", Font.PLAIN,80));
+                applyFont(80,g);
                 g.drawString("Press space to start!",100, 300);
             }
             if (stageOne) {
-                g.setFont(new Font("Monaco", Font.PLAIN, 40));
+                applyFont(40,g);
+                String message = "Click the following key as fast as possible:";
                 g.drawString(message,100,300);
-                g.setFont(new Font("Monaco", Font.PLAIN, 60));
+                applyFont(60,g);
                 g.drawString("" + key, 450, 400);
             }
         }
@@ -65,8 +62,8 @@ public class FrameBuilder implements ActionListener {
         imagePlane.repaint();
     }
 
-    private void setFontSize(int size) {
-        imagePlane.setFont(new Font("Monaco", Font.PLAIN, size));
+    private void applyFont(int size, Graphics g) {
+        g.setFont(new Font("Monaco", Font.PLAIN, size));
     }
 
     public void startTimer(){
@@ -81,22 +78,17 @@ public class FrameBuilder implements ActionListener {
         clouds.nextImage();
     }
 
-//    private void moveTrack() {
-//        track.nextImage();
-//    }
+    public void setMoveChar(boolean moveChar) {
+        this.moveChar = moveChar;
+    }
 
-
+    public void setMovement(boolean flag){
+        setMoveCloud(flag);
+        setMoveChar(flag);
+    }
 
     public char getKey() {
         return key;
-    }
-
-    public boolean isStageOne() {
-        return stageOne;
-    }
-
-    public void setMoveChar(boolean moveChar) {
-        this.moveChar = moveChar;
     }
 
     public void setMoveCloud(boolean moveCloud) {
