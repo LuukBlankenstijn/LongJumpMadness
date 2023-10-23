@@ -23,7 +23,7 @@ public class BeginScreen {
                 frame.removeKeyListener(this);
                 plane.timer.setDelay(15);
                 plane.setMovement(true);
-                plane.setDrawStartText(false);
+                plane.setBeginScreen(false);
                 beginActive = false;
             }
         }
@@ -32,7 +32,7 @@ public class BeginScreen {
     public void run() {
         beginActive = true;
         plane.setMovement(false);
-        plane.setDrawStartText(true);
+        plane.setBeginScreen(true);
         frame.addKeyListener(keyAdapter);
         while(beginActive){
             continue;

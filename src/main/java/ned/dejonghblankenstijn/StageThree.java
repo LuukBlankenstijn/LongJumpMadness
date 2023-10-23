@@ -32,7 +32,7 @@ public class StageThree implements ActionListener {
             if (e.getKeyCode() == KeyEvent.VK_SPACE) {
                 frame.removeKeyListener(this);
                 plane.setStageThreeMove(false);
-                int distance = Math.abs(plane.getCirclePos());
+                int distance = Math.abs(460 - plane.getCirclePos());
                 score = (500 - distance) * 6;
                 delay.remove();
             }

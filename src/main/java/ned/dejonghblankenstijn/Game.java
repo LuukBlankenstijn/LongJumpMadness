@@ -7,9 +7,9 @@ public class Game {
 
     private final JFrame frame = new JFrame("Long Jump Madness");
     private final FrameBuilder framebuilder = new FrameBuilder();
-    private final BeginScreen beginScreen = new BeginScreen(frame,framebuilder);
-    private final StageOne stageOne = new StageOne(frame,framebuilder);
-    private final StageThree stageThree = new StageThree(frame,framebuilder);
+    private final BeginScreen beginScreen = new BeginScreen(frame, framebuilder);
+    private final StageOne stageOne = new StageOne(frame, framebuilder);
+    private final StageThree stageThree = new StageThree(frame, framebuilder);
 
     private final Delay delay = new Delay();
 
@@ -18,21 +18,20 @@ public class Game {
     }
 
     private void setupFrame() {
-        frame.add(framebuilder.imagePlane);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(new Dimension(960,960));
-//        frame.setResizable(false);
+        frame.add(framebuilder.imagePlane, BorderLayout.CENTER );
         frame.setVisible(true);
         framebuilder.startTimer();
+
     }
 
     public void run() {
-        int score = 0;
         beginScreen.run();
         delay.add(2000);
-        score += stageOne.run();
+        framebuilder.addTotalScore(stageOne.run());
         delay.add(2000);
-        score += stageThree.run();
+        framebuilder.addTotalScore(stageThree.run());
 
     }
 }
