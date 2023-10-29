@@ -1,6 +1,7 @@
 package ned.dejonghblankenstijn;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -8,6 +9,8 @@ import java.awt.event.KeyEvent;
 
 public class StageThree implements ActionListener {
     private final int STAGE_TIME = 10000;
+
+    private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private final JFrame frame;
     private final FrameBuilder plane;
     private final Delay delay = new Delay();
@@ -21,7 +24,7 @@ public class StageThree implements ActionListener {
                 frame.removeKeyListener(this);
                 plane.setStageThreeMove(false);
                 int distance = Math.abs(460 - plane.getCirclePos());
-                score = (500 - distance) * 6;
+                score = (int) ((screenSize.height*0.5 - distance) * 6);
                 delay.remove();
             }
         }

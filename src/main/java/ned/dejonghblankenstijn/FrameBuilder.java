@@ -12,7 +12,9 @@ public class FrameBuilder implements ActionListener {
     private final int xOfset = Math.max((screenSize.width - screenSize.height) / 2, 0);
     private final Clouds clouds = new Clouds();
     private final Track track = new Track();
+    private final Trees trees = new Trees();
     private final MovingCharacter character = new MovingCharacter();
+    private final Grass grass = new Grass();
     private final int RADIUS = 40;
     public Point randomPoint;
     protected DrawPlane imagePlane = new DrawPlane();
@@ -65,18 +67,21 @@ public class FrameBuilder implements ActionListener {
             if (timerCycle % 80 == 0) {
 
                 moveClouds();
+                moveGrass();
+                moveTrees();
             }
         }
         if (stageThreeMove) {
-            int moveRate = (int) Math.round(-65.1 * Math.pow(10, -6) * Math.pow(circlePos - 480, 2) + 15);
-            if (circlePos >= 890) {
+            int moveRate = Math.max((int) Math.round(-65.1 * Math.pow(10, -6) * Math.pow(circlePos - 480, 2) + 15) * screenSize.height / 1080 ,5);
+            if (circlePos >= screenSize.height*0.9) {
                 direction *= -1;
-                circlePos = 890;
+                circlePos = (int) (screenSize.height*0.9);
             }
-            if (circlePos <= 30) {
+            if (circlePos <= screenSize.height*0.1) {
                 direction *= -1;
-                circlePos = 30;
+                circlePos = (int) (screenSize.height*0.1);
             }
+            System.out.println(screenSize.height);
             circlePos = circlePos + (moveRate * direction);
         }
 
@@ -85,7 +90,7 @@ public class FrameBuilder implements ActionListener {
     }
 
     private void applyFont(int size, Graphics g) {
-        g.setFont(new Font("Monaco", Font.PLAIN, size));
+        g.setFont(new Font("Monaco", Font.PLAIN, size * 960 / screenSize.height));
     }
 
     public void startTimer() {
@@ -98,6 +103,18 @@ public class FrameBuilder implements ActionListener {
 
     private void moveClouds() {
         clouds.nextImage();
+    }
+
+    private void moveTrees() {
+        trees.nextImage();
+    }
+
+    public void setTotalScore(int totalScore) {
+        this.totalScore = totalScore;
+    }
+
+    private void moveGrass() {
+//        grass.nextImage();
     }
 
     public void setMoveChar(boolean moveChar) {
@@ -166,8 +183,10 @@ public class FrameBuilder implements ActionListener {
         public void paintComponent(Graphics g) {
             Color menuBackground = new Color(255, 215, 175);
             g.drawImage(clouds.showImage, xOfset, 0, this);
-            g.drawImage(track.showImage, xOfset, screenSize.height * 92 / 256, this);
-            g.drawImage(character.showImage, xOfset + 350, 475, this);
+            g.drawImage(track.showImage, xOfset, 0, this);
+            g.drawImage(grass.showImage,xOfset,0,this);
+            g.drawImage(trees.showImage, xOfset,0,this);
+            g.drawImage(character.showImage, xOfset + 350, 650, this);
             if (beginScreen) {
                 applyFont(80, g);
                 g.drawString("Press space to start!", xOfset + 100, 300);
@@ -204,12 +223,19 @@ public class FrameBuilder implements ActionListener {
             if (stageThreeShow) {
                 String message = "Press space to stop the the moving point";
                 applyFont(40, g);
-                g.drawString(message, xOfset + 100, 300);
                 g.setColor(Color.BLACK);
-                g.fillRect(xOfset + 50, 800, 860, 10);
+                g.drawString(message, (int) (xOfset + (0.1 * screenSize.height)), 50);
+                g.fillRect(
+                        (int) (xOfset + 0.1 * screenSize.height),
+                        400,
+                        (int) (0.8 * screenSize.height),
+                        10);
                 g.setColor(Color.WHITE);
-                g.fillRect(xOfset + 475, 780, 10, 50);
-                g.fillOval(xOfset + circlePos, 785, 40, 40);
+                g.fillRect((int) (xOfset + (0.5 * screenSize.height) - 10),
+                        380,
+                        10,
+                        50);
+                g.fillOval(xOfset + circlePos - 20, 385, 40, 40);
             }
             if (scoreMenu) {
                 g.setColor(menuBackground);

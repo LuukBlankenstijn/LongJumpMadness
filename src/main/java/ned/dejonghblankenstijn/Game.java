@@ -13,6 +13,7 @@ public class Game {
     private final StageThree stageThree = new StageThree(frame, framebuilder);
     private final ScoreMenu scoreMenu = new ScoreMenu(frame, framebuilder);
 
+
     private final Delay delay = new Delay();
 
     private boolean rerun = true;
@@ -33,10 +34,10 @@ public class Game {
     public void run() {
         while (rerun) {
             beginScreen.run();
-            delay.add(2000);
-            framebuilder.addTotalScore(stageOne.run());
-            delay.add(2000);
-            framebuilder.addTotalScore(stageTwo.run());
+//            delay.add(2000);
+//            framebuilder.addTotalScore(stageOne.run());
+//            delay.add(2000);
+//            framebuilder.addTotalScore(stageTwo.run());
             delay.add(2000);
             framebuilder.addTotalScore(stageThree.run());
             rerun = scoreMenu.run();
@@ -44,5 +45,6 @@ public class Game {
         }
         framebuilder.timer.stop();
         frame.dispose();
+        framebuilder.setTotalScore(0);
     }
 }

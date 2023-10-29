@@ -25,7 +25,7 @@ public class StageTwo implements ActionListener {
             double distance = plane.getRandomPoint().distance(
                     e.getX() - plane.getxOfset(),
                     e.getY() - 15);
-            if (distance < (RADIUS * 2)) {
+            if (distance < (RADIUS * 3)) {
                 frame.removeMouseListener(this);
                 plane.setStageTwo(false);
                 score = Math.max((int) (DURATION - (System.nanoTime() - startTime) / 1000000), 0);
@@ -49,7 +49,7 @@ public class StageTwo implements ActionListener {
         if (e.getSource() == countdown) {
             if (plane.getKey() == 49) {
                 countdown.stop();
-                plane.setKey((char) 51);
+                plane.setKey((char) ' ');
             } else {
                 plane.setKey((char) (plane.getKey() - 1));
             }
@@ -63,8 +63,8 @@ public class StageTwo implements ActionListener {
 
     public int run() {
         plane.setRandomPoint(new Point(
-                (int) ((screenSize.height - (RADIUS * 2)) * Math.random()),
-                (int) ((screenSize.height - (RADIUS * 2)) * Math.random())
+                (int) ((screenSize.height - (RADIUS * 3)) * Math.random()) + RADIUS,
+                (int) ((screenSize.height - (RADIUS * 3)) * Math.random()) + RADIUS
         ));
         plane.setStageTwo(true);
         startCountdown();
