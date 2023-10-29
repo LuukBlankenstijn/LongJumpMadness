@@ -8,7 +8,7 @@ public class Track {
     private final int frameSize = screenSize.height;
 
     protected Image[] frames = {
-            new ImageIcon("src/main/resources/Track/Track.png").getImage().getScaledInstance(frameSize,-1,Image.SCALE_DEFAULT)
+            new ImageIcon("src/main/resources/Track/Track.png").getImage().getScaledInstance(frameSize, -1, Image.SCALE_DEFAULT)
 
     };
 

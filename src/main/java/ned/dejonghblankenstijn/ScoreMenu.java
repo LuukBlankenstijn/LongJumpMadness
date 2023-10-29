@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class ScoreMenu extends JPanel{
+public class ScoreMenu extends JPanel {
     private final JFrame frame;
     private final FrameBuilder plane;
 
@@ -15,14 +15,14 @@ public class ScoreMenu extends JPanel{
         @Override
         public void keyPressed(KeyEvent e) {
             super.keyPressed(e);
-            if(e.getKeyCode() == KeyEvent.VK_ENTER){
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                 System.out.println("Enter");
                 frame.removeKeyListener(this);
                 rerun = true;
                 endScreen = false;
                 plane.setScoreMenu(false);
             }
-            if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+            if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
                 frame.removeKeyListener(this);
                 rerun = false;
                 endScreen = false;

@@ -7,19 +7,12 @@ import java.awt.event.KeyEvent;
 public class BeginScreen {
     private final JFrame frame;
     private final FrameBuilder plane;
-
-    public BeginScreen(JFrame frame, FrameBuilder plane) {
-        this.frame = frame;
-        this.plane = plane;
-    }
-
     private volatile boolean beginActive = false;
-
     private final KeyAdapter keyAdapter = new KeyAdapter() {
         @Override
         public void keyPressed(KeyEvent e) {
             super.keyPressed(e);
-            if (e.getKeyCode() == KeyEvent.VK_SPACE){
+            if (e.getKeyCode() == KeyEvent.VK_SPACE) {
                 frame.removeKeyListener(this);
                 plane.timer.setDelay(15);
                 plane.setMovement(true);
@@ -28,6 +21,11 @@ public class BeginScreen {
             }
         }
     };
+
+    public BeginScreen(JFrame frame, FrameBuilder plane) {
+        this.frame = frame;
+        this.plane = plane;
+    }
 
     public void run() {
         beginActive = true;

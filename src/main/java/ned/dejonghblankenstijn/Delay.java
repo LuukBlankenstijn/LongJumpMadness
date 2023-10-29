@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 public class Delay implements ActionListener {
 
-    private final Timer delay = new Timer(0,this);
+    private final Timer delay = new Timer(0, this);
 
     @Override
     public void actionPerformed(ActionEvent e) {

@@ -7,24 +7,12 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class StageThree implements ActionListener {
-    public StageThree(JFrame frame, FrameBuilder plane) {
-        this.frame = frame;
-        this.plane = plane;
-        waitTimer.setInitialDelay(STAGE_TIME);
-    }
-    
     private final int STAGE_TIME = 10000;
-
     private final JFrame frame;
     private final FrameBuilder plane;
-
     private final Delay delay = new Delay();
-    private final Timer waitTimer = new Timer(0,this);
-    
-
+    private final Timer waitTimer = new Timer(0, this);
     private int score;
-    private boolean instantReturn = false;
-
     private final KeyAdapter keyAdapter = new KeyAdapter() {
         @Override
         public void keyPressed(KeyEvent e) {
@@ -38,6 +26,13 @@ public class StageThree implements ActionListener {
             }
         }
     };
+    private boolean instantReturn = false;
+
+    public StageThree(JFrame frame, FrameBuilder plane) {
+        this.frame = frame;
+        this.plane = plane;
+        waitTimer.setInitialDelay(STAGE_TIME);
+    }
 
     public int run() {
         plane.setStageThreeShow(true);
@@ -48,7 +43,7 @@ public class StageThree implements ActionListener {
         if (instantReturn) {
             plane.setStageThreeShow(false);
             plane.setStageThreeMove(false);
-            return  score;
+            return score;
         }
         waitTimer.stop();
         delay.add(2000);
