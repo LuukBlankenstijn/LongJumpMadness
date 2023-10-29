@@ -17,12 +17,41 @@ public class MovingCharacter {
             new ImageIcon("src/main/resources/Character/Player_frames7.png").getImage().getScaledInstance(-1, screenSize.height / playerScale, Image.SCALE_DEFAULT),
     };
 
+    protected Image[] jump = {
+            new ImageIcon("src/main/resources/Player/Jump/player_jump1.png").getImage().getScaledInstance(-1, screenSize.height / playerScale, Image.SCALE_DEFAULT),
+            new ImageIcon("src/main/resources/Player/Jump/player_jump2.png").getImage().getScaledInstance(-1, screenSize.height / playerScale, Image.SCALE_DEFAULT),
+            new ImageIcon("src/main/resources/Player/Jump/player_jump3.png").getImage().getScaledInstance(-1, screenSize.height / playerScale, Image.SCALE_DEFAULT),
+            new ImageIcon("src/main/resources/Player/Jump/player_jump4.png").getImage().getScaledInstance(-1, screenSize.height / playerScale, Image.SCALE_DEFAULT),
+            new ImageIcon("src/main/resources/Player/Jump/player_jump5.png").getImage().getScaledInstance(-1, screenSize.height / playerScale, Image.SCALE_DEFAULT),
+            new ImageIcon("src/main/resources/Player/Jump/player_jump6.png").getImage().getScaledInstance(-1, screenSize.height / playerScale, Image.SCALE_DEFAULT),
+            new ImageIcon("src/main/resources/Player/Jump/player_jump7.png").getImage().getScaledInstance(-1, screenSize.height / playerScale, Image.SCALE_DEFAULT),
+            new ImageIcon("src/main/resources/Player/Jump/player_jump8.png").getImage().getScaledInstance(-1, screenSize.height / playerScale, Image.SCALE_DEFAULT),
+            new ImageIcon("src/main/resources/Player/Jump/player_jump9.png").getImage().getScaledInstance(-1, screenSize.height / playerScale, Image.SCALE_DEFAULT),
+            new ImageIcon("src/main/resources/Player/Jump/player_jump10.png").getImage().getScaledInstance(-1, screenSize.height / playerScale, Image.SCALE_DEFAULT),
+            new ImageIcon("src/main/resources/Player/Jump/player_jump11.png").getImage().getScaledInstance(-1, screenSize.height / playerScale, Image.SCALE_DEFAULT),
+            new ImageIcon("src/main/resources/Player/Jump/player_jump12.png").getImage().getScaledInstance(-1, screenSize.height / playerScale, Image.SCALE_DEFAULT),
+            new ImageIcon("src/main/resources/Player/Jump/player_jump13.png").getImage().getScaledInstance(-1, screenSize.height / playerScale, Image.SCALE_DEFAULT),
+            new ImageIcon("src/main/resources/Player/Jump/player_jump14.png").getImage().getScaledInstance(-1, screenSize.height / playerScale, Image.SCALE_DEFAULT),
+            new ImageIcon("src/main/resources/Player/Jump/player_jump15.png").getImage().getScaledInstance(-1, screenSize.height / playerScale, Image.SCALE_DEFAULT),
+            new ImageIcon("src/main/resources/Player/Jump/player_jump16.png").getImage().getScaledInstance(-1, screenSize.height / playerScale, Image.SCALE_DEFAULT),
+            new ImageIcon("src/main/resources/Player/Jump/player_jump17.png").getImage().getScaledInstance(-1, screenSize.height / playerScale, Image.SCALE_DEFAULT),
+            new ImageIcon("src/main/resources/Player/Jump/player_jump18.png").getImage().getScaledInstance(-1, screenSize.height / playerScale, Image.SCALE_DEFAULT),
+    };
+
     protected Image showImage = frames[2];
+    protected Image jumpImage = jump[0];
 
     protected void nextImage() {
         int currentIndex = Arrays.asList(frames).indexOf(showImage);
         int newIndex = (currentIndex < frames.length - 1) ? currentIndex + 1 : 0;
         showImage = frames[newIndex];
+        currentIndex = Arrays.asList(jump).indexOf(jumpImage);
+        newIndex = (currentIndex < jump.length - 1) ? currentIndex + 1 : currentIndex;
+        jumpImage = jump[newIndex];
+    }
+
+    protected void nextImageJump() {
+
     }
 
 }

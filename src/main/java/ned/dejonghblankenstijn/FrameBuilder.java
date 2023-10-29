@@ -26,6 +26,7 @@ public class FrameBuilder implements ActionListener {
     private boolean showPoint = false;
     private boolean stageThreeShow;
     private boolean stageThreeMove;
+    private boolean jump;
     private boolean scoreMenu;
     private int circlePos = 460;
     private int direction = 1;
@@ -53,6 +54,10 @@ public class FrameBuilder implements ActionListener {
         this.showPoint = showPoint;
     }
 
+    public void setJump(boolean jump) {
+        this.jump = jump;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (timer.getDelay() > 10) {
@@ -61,6 +66,11 @@ public class FrameBuilder implements ActionListener {
         if (moveChar) {
             if (timerCycle % 10 == 0) {
                 moveCharacter();
+            }
+        }
+        if (jump) {
+            if (timerCycle % 15 == 0){
+                moveTrack();
             }
         }
         if (moveCloud) {
@@ -109,6 +119,10 @@ public class FrameBuilder implements ActionListener {
         trees.nextImage();
     }
 
+    private void moveTrack() {
+        track.nextImage();
+    }
+
     public void setTotalScore(int totalScore) {
         this.totalScore = totalScore;
     }
@@ -142,14 +156,6 @@ public class FrameBuilder implements ActionListener {
         return circlePos;
     }
 
-    public int getTotalScore() {
-        return totalScore;
-    }
-
-    public boolean getScoreMenu() {
-        return scoreMenu;
-    }
-
     public void setScoreMenu(boolean scoreMenu) {
         this.scoreMenu = scoreMenu;
     }
@@ -179,14 +185,17 @@ public class FrameBuilder implements ActionListener {
     }
 
     protected class DrawPlane extends JPanel {
-
         public void paintComponent(Graphics g) {
             Color menuBackground = new Color(255, 215, 175);
             g.drawImage(clouds.showImage, xOfset, 0, this);
-            g.drawImage(track.showImage, xOfset, 0, this);
             g.drawImage(grass.showImage,xOfset,0,this);
             g.drawImage(trees.showImage, xOfset,0,this);
-            g.drawImage(character.showImage, xOfset + 350, 650, this);
+            g.drawImage(track.showImage, xOfset, 0, this);
+            if (!jump) {
+                g.drawImage(character.showImage, (int) (xOfset + screenSize.height*0.3), (int) (screenSize.height*0.6), this);
+            } else {
+                g.drawImage(character.jumpImage, (int) (xOfset + screenSize.height*0.3), (int) (screenSize.height*0.6), this);
+            }
             if (beginScreen) {
                 applyFont(80, g);
                 g.drawString("Press space to start!", xOfset + 100, 300);

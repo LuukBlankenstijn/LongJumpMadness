@@ -11,6 +11,9 @@ public class Track {
     protected Image[] frames = {
 //            new ImageIcon("src/main/resources/Track/Track.png").getImage().getScaledInstance(frameSize,-1,Image.SCALE_DEFAULT),
             new ImageIcon("src/main/resources/Track/Sandbox1.png").getImage().getScaledInstance(frameSize,-1,Image.SCALE_DEFAULT),
+    };
+
+    protected Image[] jump = {
             new ImageIcon("src/main/resources/Track/Sandbox2.png").getImage().getScaledInstance(frameSize,-1,Image.SCALE_DEFAULT),
             new ImageIcon("src/main/resources/Track/Sandbox3.png").getImage().getScaledInstance(frameSize,-1,Image.SCALE_DEFAULT),
             new ImageIcon("src/main/resources/Track/Sandbox4.png").getImage().getScaledInstance(frameSize,-1,Image.SCALE_DEFAULT),
@@ -31,8 +34,8 @@ public class Track {
     protected Image showImage = frames[0];
 
     protected void nextImage() {
-        int currentIndex = Arrays.asList(frames).indexOf(showImage);
-        int newIndex = (currentIndex < frames.length-1) ? currentIndex+1 : 0;
-        showImage = frames[newIndex];
+        int currentIndex = Arrays.asList(jump).indexOf(showImage);
+        int newIndex = (currentIndex < jump.length-1) ? currentIndex+1 : currentIndex;
+        showImage = jump[newIndex];
     }
 }
