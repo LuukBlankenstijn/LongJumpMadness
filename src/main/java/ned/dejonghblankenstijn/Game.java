@@ -12,7 +12,7 @@ public class Game {
     private final StageTwo stageTwo = new StageTwo(frame, framebuilder);
     private final StageThree stageThree = new StageThree(frame, framebuilder);
     private final ScoreMenu scoreMenu = new ScoreMenu(frame, framebuilder);
-    private final Jump jump = new Jump(frame, framebuilder);
+    private final Jump jump = new Jump(framebuilder);
 
 
     private final Delay delay = new Delay();

@@ -11,8 +11,18 @@ public class FrameBuilder implements ActionListener {
     private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private final int xOfset = Math.max((screenSize.width - screenSize.height) / 2, 0);
     private final Clouds clouds = new Clouds();
+
+    public Track getTrack() {
+        return track;
+    }
+
     private final Track track = new Track();
     private final Trees trees = new Trees();
+
+    public MovingCharacter getCharacter() {
+        return character;
+    }
+
     private final MovingCharacter character = new MovingCharacter();
     private final Grass grass = new Grass();
     private final int RADIUS = 40;
@@ -91,7 +101,6 @@ public class FrameBuilder implements ActionListener {
                 direction *= -1;
                 circlePos = (int) (screenSize.height*0.1);
             }
-            System.out.println(screenSize.height);
             circlePos = circlePos + (moveRate * direction);
         }
 
@@ -100,7 +109,7 @@ public class FrameBuilder implements ActionListener {
     }
 
     private void applyFont(int size, Graphics g) {
-        g.setFont(new Font("Monaco", Font.PLAIN, size * 960 / screenSize.height));
+        g.setFont(new Font("Monaco", Font.PLAIN, size * screenSize.height / 960));
     }
 
     public void startTimer() {
@@ -108,7 +117,11 @@ public class FrameBuilder implements ActionListener {
     }
 
     private void moveCharacter() {
-        character.nextImage();
+        if (!jump) {
+            character.nextImage();
+        } else {
+            character.nextImageJump();
+        }
     }
 
     private void moveClouds() {
@@ -140,6 +153,9 @@ public class FrameBuilder implements ActionListener {
     }
 
     public void setMovement(boolean move) {
+        if(!move) {
+            character.showImage = character.frames[2];
+        }
         setMoveCloud(move);
         setMoveChar(move);
     }
@@ -198,7 +214,10 @@ public class FrameBuilder implements ActionListener {
             }
             if (beginScreen) {
                 applyFont(80, g);
-                g.drawString("Press space to start!", xOfset + 100, 300);
+                g.setColor(Color.BLACK);
+                g.drawString("Long Jump Madness", (int) (xOfset + screenSize.height*0.1), (int) (screenSize.height * 0.1));
+                g.setColor(Color.WHITE);
+                g.drawString("Press space to start!", (int) (xOfset + screenSize.height*0.1), (int) (screenSize.height * 0.3));
             } else if (!scoreMenu) {
                 g.setColor(menuBackground);
                 g.fillRect(xOfset + screenSize.height - 150, 0, 150, 40);
@@ -208,17 +227,19 @@ public class FrameBuilder implements ActionListener {
             }
             if (stageOne) {
                 applyFont(40, g);
+                g.setColor(Color.WHITE);
                 String message = "Click the following key as fast as possible:";
-                g.drawString(message, xOfset + 100, 300);
+                g.drawString(message, xOfset + (int) (screenSize.height * 0.1), (int) (screenSize.height * 0.3));
                 applyFont(60, g);
-                g.drawString("" + key, xOfset + 450, 400);
+                g.drawString("" + key, xOfset + (int) (screenSize.height * 0.4), (int) (screenSize.height * 0.4));
             }
             if (stageTwo) {
                 applyFont(40, g);
+                g.setColor(Color.WHITE);
                 String message = "Click the red point as fast as possible:";
-                g.drawString(message, xOfset + 150, 300);
+                g.drawString(message, xOfset + (int) (screenSize.height * 0.1), (int) (screenSize.height * 0.3));
                 applyFont(60, g);
-                g.drawString("" + key, xOfset + 450, 400);
+                g.drawString("" + key, xOfset + (int) (screenSize.height * 0.4), (int) (screenSize.height * 0.4));
                 if (showPoint) {
                     g.setColor(Color.RED);
                     g.fillOval(

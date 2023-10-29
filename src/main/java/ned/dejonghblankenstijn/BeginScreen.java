@@ -28,6 +28,8 @@ public class BeginScreen {
     }
 
     public void run() {
+        plane.getTrack().showImage = plane.getTrack().frames[0];
+        plane.getCharacter().showImage = plane.getCharacter().frames[2];
         beginActive = true;
         plane.setMovement(false);
         plane.setBeginScreen(true);
