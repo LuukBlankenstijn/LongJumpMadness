@@ -52,13 +52,16 @@ public class StageOne implements ActionListener {
     private int score;
     private long startTime;
 
+    private void startCountdown() {
+        plane.setKey((char) 51);
+        countdown.start();
+    }
 
     public int run() {
         plane.setStageOne(true);
-        countdown.start();
+        startCountdown();
         while (true) {
             if (!countdown.isRunning()) break;
-
         }
         plane.setKey(RANDOM_KEY);
         frame.addKeyListener(keyAdapter);

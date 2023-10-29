@@ -34,8 +34,8 @@ public class BeginScreen {
         plane.setMovement(false);
         plane.setBeginScreen(true);
         frame.addKeyListener(keyAdapter);
-        while(beginActive){
-            continue;
+        while (beginActive) {
+            Thread.onSpinWait();
         }
 
     }

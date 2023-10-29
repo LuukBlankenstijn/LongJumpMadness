@@ -10,6 +10,12 @@ public class FrameBuilder implements ActionListener {
     protected final Timer timer = new Timer(10, this);
     private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
+    public int getxOfset() {
+        return xOfset;
+    }
+
+    private final int xOfset = Math.max((screenSize.width - screenSize.height) / 2,0);
+
     private final Clouds clouds = new Clouds();
     private final Track track = new Track();
     private final MovingCharacter character = new MovingCharacter();
@@ -18,16 +24,25 @@ public class FrameBuilder implements ActionListener {
     private boolean moveCloud;
     private boolean beginScreen;
     private boolean stageOne;
+    private boolean stageTwo;
+
+    public void setRandomPoint(Point randomPoint) {
+        this.randomPoint = randomPoint;
+    }
+
+    private Point randomPoint;
+    private final int RADIUS = 20;
     private boolean stageThreeShow;
     private boolean stageThreeMove;
+    private boolean scoreMenu;
     private int circlePos = 460;
     private int direction = 1;
     private long timerCycle = 0;
     private char key = 51;
-
-
-
     private int totalScore = 0;
+
+
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -100,7 +115,9 @@ public class FrameBuilder implements ActionListener {
     public int getTotalScore() {
         return totalScore;
     }
-
+    public boolean getScoreMenu() {
+        return scoreMenu;
+}
     public void setKey(char countDown) {
         this.key = countDown;
     }
@@ -112,6 +129,9 @@ public class FrameBuilder implements ActionListener {
     public void setStageOne(boolean stageOne) {
         this.stageOne = stageOne;
     }
+    public void setStageTwo(boolean stageTwo) {
+        this.stageTwo = stageTwo;
+    }
 
     public void setStageThreeShow(boolean stageThreeShow) {
         this.stageThreeShow = stageThreeShow;
@@ -120,8 +140,8 @@ public class FrameBuilder implements ActionListener {
     public void setStageThreeMove(boolean stageThreeMove) {
         this.stageThreeMove = stageThreeMove;
     }
-    public void setTotalScore(int totalScore) {
-        this.totalScore = totalScore;
+    public void setScoreMenu(boolean scoreMenu) {
+        this.scoreMenu = scoreMenu;
     }
     public void addTotalScore(int add) {
         this.totalScore += add;
@@ -130,7 +150,7 @@ public class FrameBuilder implements ActionListener {
     protected class DrawPlane extends JPanel {
 
         public void paintComponent(Graphics g) {
-            int xOfset = Math.max((screenSize.width - screenSize.height) / 2,0);
+            Color menuBackground = new Color(255,215,175);
             g.drawImage(clouds.showImage, xOfset, 0, this);
             g.drawImage(track.showImage, xOfset, screenSize.height * 92 / 256, this);
             g.drawImage(character.showImage, xOfset + 350, 475, this);
@@ -138,8 +158,8 @@ public class FrameBuilder implements ActionListener {
                 applyFont(80, g);
                 g.drawString("Press space to start!", xOfset + 100, 300);
             }
-            else {
-                g.setColor(new Color(255, 215,175));
+            else if(!scoreMenu){
+                g.setColor(menuBackground);
                 g.fillRect(xOfset + screenSize.height - 150,0,150,40);
                 g.setColor(Color.BLACK);
                 applyFont(30,g);
@@ -152,6 +172,20 @@ public class FrameBuilder implements ActionListener {
                 applyFont(60, g);
                 g.drawString("" + key, xOfset + 450, 400);
             }
+            if (stageTwo) {
+                applyFont(40, g);
+                String message = "Click the red point as fast as possible:";
+                g.drawString(message, xOfset + 100, 300);
+                applyFont(60, g);
+                g.drawString("" + key, xOfset + 450, 400);
+                g.setColor(Color.RED);
+                g.fillOval(
+                        xOfset + randomPoint.x - RADIUS,
+                        randomPoint.y - RADIUS,
+                        RADIUS,
+                        RADIUS);
+                g.setColor(Color.BLACK);
+            }
             if (stageThreeShow) {
                 String message = "Press space to stop the the moving point";
                 applyFont(40, g);
@@ -161,6 +195,18 @@ public class FrameBuilder implements ActionListener {
                 g.setColor(Color.WHITE);
                 g.fillRect(xOfset + 475, 780, 10, 50);
                 g.fillOval(xOfset + circlePos, 785, 40, 40);
+            }
+            if (scoreMenu) {
+                g.setColor(menuBackground);
+                g.fillRect((int) (xOfset + screenSize.height * 0.1),
+                        (int) (screenSize.height * 0.01),
+                        (int) (screenSize.height * 0.8),
+                        (int) (screenSize.height * 0.3));
+                g.setColor(Color.BLACK);
+                applyFont(60,g);
+                g.drawString("" + totalScore,xOfset+450, (int) (0.08 * screenSize.height));
+                g.drawString("Press enter te restart",xOfset + 220,(int) (0.18 * screenSize.height));
+                g.drawString("Press Backspace to exit",xOfset + 200, (int) (0.28 * screenSize.height));
             }
         }
 
